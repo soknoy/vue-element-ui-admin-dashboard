@@ -2,41 +2,41 @@
 
 import Layout from '@/layout'
 
-const usersRouter = {
-  path: '/user',
+const userRouter = {
+  path: '/user-data-query',
   component: Layout,
-  redirect: '/table/complex-table',
-  name: 'Table',
+  redirect: '/user-data-query/all-users',
+  name: 'UserDataQuery',
   meta: {
-    title: 'Table',
-    icon: 'table'
+    title: 'User Data Query',
+    icon: 'people'
   },
   children: [
     {
-      path: 'dynamic-table',
-      component: () => import('@/views/table/dynamic-table/index'),
-      name: 'DynamicTable',
-      meta: { title: 'Dynamic Table' },
+      path: 'all-users',
+      component: () => import('@/views/users/all-users'),
+      name: 'AllUsers',
+      meta: { title: 'All Users' }
+    },
+    {
+      path: 'query-users',
+      component: () => import('@/views/users/query-users'),
+      name: 'QueryUsers',
+      meta: { title: 'Query Users' }
+    },
+    {
+      path: 'blacklist',
+      component: () => import('@/views/users/blacklist'),
+      name: 'Blacklist',
+      meta: { title: 'Blacklist' }
+    },
+    {
+      path: 'login-record/:id',
+      component: () => import('@/views/users/login-record'),
+      name: 'LoginRecord',
+      meta: { title: 'LoginRecord' },
       hidden: true
-    },
-    {
-      path: 'drag-table',
-      component: () => import('@/views/table/drag-table'),
-      name: 'DragTable',
-      meta: { title: 'Drag Table' }
-    },
-    {
-      path: 'inline-edit-table',
-      component: () => import('@/views/table/inline-edit-table'),
-      name: 'InlineEditTable',
-      meta: { title: 'Inline Edit' }
-    },
-    {
-      path: 'complex-table',
-      component: () => import('@/views/table/complex-table'),
-      name: 'ComplexTable',
-      meta: { title: 'Complex Table' }
     }
   ]
 }
-export default usersRouter
+export default userRouter

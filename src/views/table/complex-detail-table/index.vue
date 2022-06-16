@@ -12,7 +12,16 @@
       title="Tab with keep-alive"
       type="success"
     /> -->
-    <el-button type="info">Back</el-button>
+    <div>
+      <el-button type="info">Back</el-button>
+      <el-badge class="item" style="float: right">
+        <el-button
+          size="small"
+          icon="el-icon-user-solid"
+          style="color: blue"
+        >Username here</el-button>
+      </el-badge>
+    </div>
     <el-tabs
       v-model="activeName"
       style="margin-top: 15px"
