@@ -40,12 +40,11 @@
             <el-col>
               <el-radio v-model="radio" label="username">Username</el-radio>
               <el-radio v-model="radio" label="id">ID</el-radio>
-            </el-col>
-            <el-col style="margin-top: 2%">
               <el-form
                 :inline="true"
                 :model="formInline"
                 class="demo-form-inline"
+                style="margin-top: 1%"
               >
                 <el-form-item label="Query Keyword">
                   <el-input
@@ -58,8 +57,8 @@
             </el-col>
           </el-row>
         </el-col>
+        <el-button type="success" style="float: right">Search</el-button>
       </el-row>
-      <el-button type="success" style="margin-top: 1%">Search</el-button>
     </el-card>
     <el-table
       :data="tableData"

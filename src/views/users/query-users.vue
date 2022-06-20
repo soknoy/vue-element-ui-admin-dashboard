@@ -5,31 +5,26 @@
         <b>Query User</b>
       </div>
       <el-row :gutter="20">
-        <el-col :span="6">
-          <el-row :gutter="20">
-            <el-col>
-              <el-radio v-model="radio" label="username">Username</el-radio>
-              <el-radio v-model="radio" label="id">ID</el-radio>
-            </el-col>
-            <el-col style="margin-top: 4%">
-              <el-form
-                :inline="true"
-                :model="formInline"
-                class="demo-form-inline"
-              >
-                <el-form-item label="Query Keyword">
-                  <el-input
-                    v-model="formInline.user"
-                    placeholder="Input here to search"
-                    clearable
-                  />
-                </el-form-item>
-              </el-form>
-            </el-col>
-          </el-row>
+        <el-col>
+          <el-radio v-model="radio" label="username">Username</el-radio>
+          <el-radio v-model="radio" label="id">ID</el-radio>
+          <el-button type="success" style="float: right">Search</el-button>
+          <el-form
+            :inline="true"
+            :model="formInline"
+            class="demo-form-inline"
+            style="margin-top: 1%"
+          >
+            <el-form-item label="Query Keyword">
+              <el-input
+                v-model="formInline.user"
+                placeholder="Input here to search"
+                clearable
+              />
+            </el-form-item>
+          </el-form>
         </el-col>
       </el-row>
-      <el-button type="success" style="margin-top: 1%">Search</el-button>
     </el-card>
     <el-table
       :data="tableData"

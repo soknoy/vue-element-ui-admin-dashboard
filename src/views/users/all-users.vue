@@ -71,8 +71,10 @@
           </el-select>
         </el-col>
       </el-row>
-      <el-button type="success" style="margin-top: 1%">Search</el-button>
-      <el-button type="info" style="margin-top: 1%">Reset</el-button>
+      <el-button
+        type="success"
+        style="margin-bottom: 0.5%; float: right"
+      >Search</el-button>
     </el-card>
     <el-table
       :data="tableData"

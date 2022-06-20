@@ -193,6 +193,26 @@ export const asyncRoutes = [
   tableRouter,
   templateRouter,
   userRouter,
+  {
+    path: '/channel',
+    component: Layout,
+    redirect: '/channel/channel-list',
+    alwaysShow: true,
+    name: 'Channel',
+    meta: {
+      title: 'Channel',
+      icon: 'zip',
+      roles: ['admin']
+    },
+    children: [
+      {
+        path: 'channel-list',
+        component: () => import('@/views/channel/channel-list'),
+        name: 'ChannelList',
+        meta: { title: 'Channel List', icon: 'edit' }
+      }
+    ]
+  },
 
   {
     path: '/example',
