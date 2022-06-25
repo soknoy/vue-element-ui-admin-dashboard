@@ -13,6 +13,11 @@ import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
 import templateRouter from './modules/templates'
 import userRouter from './modules/users'
+import statisticsRouter from './modules/statistics'
+import redlimitRouter from './modules/redlimit'
+import gameconfigurationRouter from './modules/gameconfiguration'
+import gamerecordRouter from './modules/gamerecord'
+import accountsettingRouter from './modules/accountsetting'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -193,6 +198,11 @@ export const asyncRoutes = [
   tableRouter,
   templateRouter,
   userRouter,
+  statisticsRouter,
+  redlimitRouter,
+  gameconfigurationRouter,
+  gamerecordRouter,
+  accountsettingRouter,
   {
     path: '/channel',
     component: Layout,

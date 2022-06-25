@@ -174,6 +174,21 @@
           }}</el-button>
         </template>
       </el-table-column>
+      <el-table-column
+        label="Actions"
+        align="center"
+        width="230"
+        class-name="small-padding fixed-width"
+      >
+        <template slot-scope="{ row }">
+          <el-button type="primary" size="mini" @click="handleModifyLimit(row)">
+            Red Limit
+          </el-button>
+          <el-button size="mini" type="danger" @click="handleBan(row)">
+            Ban
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <div style="margin-top: 1%">
       Cumulative query content : {{ endDateValue }}
