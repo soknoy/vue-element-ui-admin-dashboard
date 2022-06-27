@@ -1,271 +1,288 @@
 <template>
-  <div class="app-container">
-    <el-button type="primary" @click="handleAddRole">New Role</el-button>
-
-    <el-table :data="rolesList" style="width: 100%;margin-top:30px;" border>
-      <el-table-column align="center" label="Role Key" width="220">
-        <template slot-scope="scope">
-          {{ scope.row.key }}
+  <div style="margin: 0.5%">
+    <el-card shadow="never">
+      <div slot="header">
+        <b>All Users</b>
+      </div>
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-row :gutter="20">
+            <el-col>
+              <span
+                class="demonstration"
+                style="margin: 0.5%"
+              >Starting time :</span>
+              <el-date-picker
+                v-model="startDateValue"
+                type="datetime"
+                placeholder="Select date and time"
+              />
+            </el-col>
+            <el-col style="margin-top: 1%">
+              <span class="demonstration" style="margin: 0.5%">End time :</span>
+              <el-date-picker
+                v-model="endDateValue"
+                type="datetime"
+                placeholder="Select date and time"
+                style="margin-left: 5%"
+              />
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="8">
+          <el-row :gutter="20">
+            <el-col>
+              <span>Equiment : </span>
+              <el-select v-model="value" placeholder="Select">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-col>
+            <el-col style="margin-top: 1%">
+              <span>Channel : </span>
+              <el-select
+                v-model="value"
+                placeholder="Select"
+                style="margin-left: 1.5%"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="8">
+          <span>Type : </span>
+          <el-select v-model="value" placeholder="Select">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-col>
+      </el-row>
+      <el-button
+        type="success"
+        style="margin-bottom: 0.5%; float: right"
+      >Search</el-button>
+    </el-card>
+    <el-table
+      :data="tableData"
+      border
+      fit
+      highlight-current-row
+      style="width: 200%; margin-top: 1%"
+      stripe
+    >
+      <el-table-column
+        label="Serial Number"
+        prop="No"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <span>{{ row.No }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Role Name" width="220">
-        <template slot-scope="scope">
-          {{ scope.row.name }}
+      <el-table-column label="ID" prop="ID" align="center">
+        <template slot-scope="{ row }">
+          <span>{{ row.ID }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="header-center" label="Description">
-        <template slot-scope="scope">
-          {{ scope.row.description }}
+      <el-table-column
+        label="Username"
+        prop="Username"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <span>{{ row.Username }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Operations">
-        <template slot-scope="scope">
-          <el-button type="primary" size="small" @click="handleEdit(scope)">Edit</el-button>
-          <el-button type="danger" size="small" @click="handleDelete(scope)">Delete</el-button>
+      <el-table-column
+        label="Channel ID"
+        prop="ChannelID"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <span>{{ row.ChannelID }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="Phone Number"
+        prop="PhoneNumber"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <span>{{ row.PhoneNumber }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="Register Device"
+        prop="RegisterDevice"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <span>{{ row.RegisterDevice }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="LoginStatus"
+        prop="LoginStatus"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <span>{{ row.LoginStatus }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Registration time" align="center">
+        <template slot-scope="{ row }">
+          <span>{{
+            row.RegistrationDate | parseTime('{y}-{m}-{d} {h}:{i}')
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Last login time" align="center">
+        <template slot-scope="{ row }">
+          <span>{{
+            row.LastLoginTime | parseTime('{y}-{m}-{d} {h}:{i}')
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="Registration record"
+        prop="RegisterRecord"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <el-button type="primary" size="small" @click="checkRecord(row.ID)">{{
+            row.RegisterRecord
+          }}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="Actions"
+        align="center"
+      >
+        <template slot-scope="{ row }">
+          <el-button type="primary" size="mini" @click="handleModifyLimit(row)">
+            Red Limit
+          </el-button>
+          <el-button size="mini" type="danger" @click="handleBan(row)">
+            Ban
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <el-dialog :visible.sync="dialogVisible" :title="dialogType==='edit'?'Edit Role':'New Role'">
-      <el-form :model="role" label-width="80px" label-position="left">
-        <el-form-item label="Name">
-          <el-input v-model="role.name" placeholder="Role Name" />
-        </el-form-item>
-        <el-form-item label="Desc">
-          <el-input
-            v-model="role.description"
-            :autosize="{ minRows: 2, maxRows: 4}"
-            type="textarea"
-            placeholder="Role Description"
-          />
-        </el-form-item>
-        <el-form-item label="Menus">
-          <el-tree
-            ref="tree"
-            :check-strictly="checkStrictly"
-            :data="routesData"
-            :props="defaultProps"
-            show-checkbox
-            node-key="path"
-            class="permission-tree"
-          />
-        </el-form-item>
-      </el-form>
-      <div style="text-align:right;">
-        <el-button type="danger" @click="dialogVisible=false">Cancel</el-button>
-        <el-button type="primary" @click="confirmRole">Confirm</el-button>
-      </div>
-    </el-dialog>
+    <div style="margin-top: 1%">
+      Cumulative query content : {{ endDateValue }}
+    </div>
+    <!-- <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.limit"
+      @pagination="getList"
+    /> -->
   </div>
 </template>
 
 <script>
-import path from 'path'
-import { deepClone } from '@/utils'
-import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
-
-const defaultRole = {
-  key: '',
-  name: '',
-  description: '',
-  routes: []
-}
-
+import router from '@/router'
 export default {
   data() {
     return {
-      role: Object.assign({}, defaultRole),
-      routes: [],
-      rolesList: [],
-      dialogVisible: false,
-      dialogType: 'new',
-      checkStrictly: false,
-      defaultProps: {
-        children: 'children',
-        label: 'title'
-      }
+      tableData: [
+        {
+          No: '1',
+          ID: 'Tom',
+          Username: 'No. 189, Grove St, Los Angeles',
+          ChannelID: '1',
+          PhoneNumber: '010900479',
+          RegisterDevice: 'PC',
+          LoginStatus: 'Yes',
+          RegistrationDate: '2000-1-1 12:00:00',
+          LastLoginTime: '2000-1-1 12:00:00',
+          RegisterRecord: 'Check'
+        },
+        {
+          No: '2',
+          ID: 'Soknoy',
+          Username: 'No. 189, Grove St, Los Angeles',
+          ChannelID: '1',
+          PhoneNumber: '010900479',
+          RegisterDevice: 'PC',
+          LoginStatus: 'Yes',
+          RegistrationDate: '2000-1-1 12:00:00',
+          LastLoginTime: '2000-1-1 12:00:00',
+          RegisterRecord: 'Check'
+        },
+        {
+          No: '3',
+          ID: 'PovPov',
+          Username: 'No. 189, Grove St, Los Angeles',
+          ChannelID: '1',
+          PhoneNumber: '010900479',
+          RegisterDevice: 'PC',
+          LoginStatus: 'Yes',
+          RegistrationDate: '2000-1-1 12:00:00',
+          LastLoginTime: '2000-1-1 12:00:00',
+          RegisterRecord: 'Check'
+        },
+        {
+          No: '4',
+          ID: 'Gaara',
+          Username: 'No. 189, Grove St, Los Angeles',
+          ChannelID: '1',
+          PhoneNumber: '010900479',
+          RegisterDevice: 'PC',
+          LoginStatus: 'Yes',
+          RegistrationDate: '2000-1-1 12:00:00',
+          LastLoginTime: '2000-1-1 12:00:00',
+          RegisterRecord: 'Check'
+        }
+      ],
+      options: [
+        {
+          value: 'Option1',
+          label: 'Option1'
+        },
+        {
+          value: 'Option2',
+          label: 'Option2'
+        },
+        {
+          value: 'Option3',
+          label: 'Option3'
+        },
+        {
+          value: 'Option4',
+          label: 'Option4'
+        },
+        {
+          value: 'Option5',
+          label: 'Option5'
+        }
+      ],
+      value: '',
+      startDateValue: '',
+      endDateValue: ''
     }
-  },
-  computed: {
-    routesData() {
-      return this.routes
-    }
-  },
-  created() {
-    // Mock: get all routes and roles list from server
-    this.getRoutes()
-    this.getRoles()
   },
   methods: {
-    async getRoutes() {
-      const res = await getRoutes()
-      console.log(res)
-      this.serviceRoutes = res.data
-      this.routes = this.generateRoutes(res.data)
-    },
-    async getRoles() {
-      const res = await getRoles()
-      this.rolesList = res.data
-    },
-
-    // Reshape the routes structure so that it looks the same as the sidebar
-    generateRoutes(routes, basePath = '/') {
-      const res = []
-
-      for (let route of routes) {
-        // skip some route
-        if (route.hidden) { continue }
-
-        const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route)
-
-        if (route.children && onlyOneShowingChild && !route.alwaysShow) {
-          route = onlyOneShowingChild
-        }
-
-        const data = {
-          path: path.resolve(basePath, route.path),
-          title: route.meta && route.meta.title
-
-        }
-
-        // recursive child routes
-        if (route.children) {
-          data.children = this.generateRoutes(route.children, data.path)
-        }
-        res.push(data)
-      }
-      return res
-    },
-    generateArr(routes) {
-      let data = []
-      routes.forEach(route => {
-        data.push(route)
-        if (route.children) {
-          const temp = this.generateArr(route.children)
-          if (temp.length > 0) {
-            data = [...data, ...temp]
-          }
-        }
-      })
-      return data
-    },
-    handleAddRole() {
-      this.role = Object.assign({}, defaultRole)
-      if (this.$refs.tree) {
-        this.$refs.tree.setCheckedNodes([])
-      }
-      this.dialogType = 'new'
-      this.dialogVisible = true
-    },
-    handleEdit(scope) {
-      this.dialogType = 'edit'
-      this.dialogVisible = true
-      this.checkStrictly = true
-      this.role = deepClone(scope.row)
-      this.$nextTick(() => {
-        const routes = this.generateRoutes(this.role.routes)
-        this.$refs.tree.setCheckedNodes(this.generateArr(routes))
-        // set checked state of a node not affects its father and child nodes
-        this.checkStrictly = false
-      })
-    },
-    handleDelete({ $index, row }) {
-      this.$confirm('Confirm to remove the role?', 'Warning', {
-        confirmButtonText: 'Confirm',
-        cancelButtonText: 'Cancel',
-        type: 'warning'
-      })
-        .then(async() => {
-          await deleteRole(row.key)
-          this.rolesList.splice($index, 1)
-          this.$message({
-            type: 'success',
-            message: 'Delete succed!'
-          })
-        })
-        .catch(err => { console.error(err) })
-    },
-    generateTree(routes, basePath = '/', checkedKeys) {
-      const res = []
-
-      for (const route of routes) {
-        const routePath = path.resolve(basePath, route.path)
-
-        // recursive child routes
-        if (route.children) {
-          route.children = this.generateTree(route.children, routePath, checkedKeys)
-        }
-
-        if (checkedKeys.includes(routePath) || (route.children && route.children.length >= 1)) {
-          res.push(route)
-        }
-      }
-      return res
-    },
-    async confirmRole() {
-      const isEdit = this.dialogType === 'edit'
-
-      const checkedKeys = this.$refs.tree.getCheckedKeys()
-      this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
-
-      if (isEdit) {
-        await updateRole(this.role.key, this.role)
-        for (let index = 0; index < this.rolesList.length; index++) {
-          if (this.rolesList[index].key === this.role.key) {
-            this.rolesList.splice(index, 1, Object.assign({}, this.role))
-            break
-          }
-        }
-      } else {
-        const { data } = await addRole(this.role)
-        this.role.key = data.key
-        this.rolesList.push(this.role)
-      }
-
-      const { description, key, name } = this.role
-      this.dialogVisible = false
-      this.$notify({
-        title: 'Success',
-        dangerouslyUseHTMLString: true,
-        message: `
-            <div>Role Key: ${key}</div>
-            <div>Role Name: ${name}</div>
-            <div>Description: ${description}</div>
-          `,
-        type: 'success'
-      })
-    },
-    // reference: src/view/layout/components/Sidebar/SidebarItem.vue
-    onlyOneShowingChild(children = [], parent) {
-      let onlyOneChild = null
-      const showingChildren = children.filter(item => !item.hidden)
-
-      // When there is only one child route, the child route is displayed by default
-      if (showingChildren.length === 1) {
-        onlyOneChild = showingChildren[0]
-        onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path)
-        return onlyOneChild
-      }
-
-      // Show parent if there are no child route to display
-      if (showingChildren.length === 0) {
-        onlyOneChild = { ... parent, path: '', noShowingChildren: true }
-        return onlyOneChild
-      }
-
-      return false
+    checkRecord(id) {
+      const userId = id
+      router.push({ name: 'LoginRecord', params: { id: userId }})
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.app-container {
-  .roles-table {
-    margin-top: 30px;
-  }
-  .permission-tree {
-    margin-bottom: 30px;
-  }
-}
-</style>
+<style lang=""></style>

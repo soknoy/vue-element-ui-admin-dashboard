@@ -3,32 +3,32 @@
     <el-button type="primary" @click="handleAddRole">New Role</el-button>
 
     <el-table :data="rolesList" style="width: 100%;margin-top:30px;" border>
-      <el-table-column align="center" label="Index" width="220">
+      <el-table-column align="center" label="Index">
         <template slot-scope="scope">
           {{ scope.row.index }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Role Key" width="220">
+      <el-table-column align="center" label="Role Key">
         <template slot-scope="scope">
           {{ scope.row.key }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Role Name" width="220">
+      <el-table-column align="center" label="Role Name">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Amount" width="220">
+      <el-table-column align="center" label="Amount">
         <template slot-scope="scope">
           {{ scope.row.amount }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Creation Time" width="220">
+      <el-table-column align="center" label="Creation Time">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Update Time" width="220">
+      <el-table-column align="center" label="Update Time">
         <template slot-scope="scope">
           {{ scope.row.createTime }}
         </template>
